@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:radio_app/src/home/banner.dart';
 
 // ignore: must_be_immutable
 class Player extends StatefulWidget {
@@ -115,6 +116,12 @@ class _PlayerState extends State<Player> {
               )
             ],
           ),
+          const Expanded(
+            child: SizedBox(
+              width: double.infinity,
+            ),
+          ),
+          const AdBanner(),
         ],
       ),
     );

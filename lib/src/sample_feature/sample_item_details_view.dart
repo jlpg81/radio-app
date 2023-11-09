@@ -28,9 +28,6 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
 
   @override
   Widget build(BuildContext context) {
-    print('_items');
-    print(_items);
-
     if (_items.isEmpty) {
       readJson();
     }

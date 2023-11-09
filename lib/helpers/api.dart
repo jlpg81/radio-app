@@ -9,17 +9,10 @@ class ApiHelper {
       'X-RapidAPI-Key': '8b86a85b5dmshe61bd872bde8bb8p1691aejsnf1677b526eaf1',
       'X-RapidAPI-Host': 'bando-radio-api.p.rapidapi.com',
     });
-    print(response.statusCode);
 
     if (response.statusCode == 200) {
-      print('response');
-      print(response.body);
-
       return response.statusCode;
     } else {
-      print('response');
-      print(response.body);
-
       return response.statusCode;
     }
   }

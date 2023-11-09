@@ -2,21 +2,18 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-class BookBanner extends StatefulWidget {
-  const BookBanner({super.key});
+class AdBanner extends StatefulWidget {
+  const AdBanner({super.key});
 
   @override
-  BookBannerState createState() => BookBannerState();
+  AdBannerState createState() => AdBannerState();
 }
 
-class BookBannerState extends State<BookBanner> {
+class AdBannerState extends State<AdBanner> {
   BannerAd? _bannerAd;
 
   final String _adUnitId = Platform.isAndroid
-      ? true // test advertisements? true for test, false for making money
-          ? 'ca-app-pub-3940256099942544/6300978111'
-          // ignore: dead_code
-          : 'ca-app-pub-2189583625067617/7466268659'
+      ? 'ca-app-pub-3940256099942544/6300978111'
       : 'ca-app-pub-3940256099942544/2934735716';
 
   /// Loads and shows a banner ad.

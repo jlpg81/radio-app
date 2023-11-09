@@ -24,10 +24,12 @@ class _PlayerState extends State<Player> {
   }
 
   @override
-  @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments! as Map;
-    audioPlayer.play(UrlSource(args['url']));
+
+    if (widget.isPlaying) {
+      audioPlayer.play(UrlSource(args['url']));
+    }
 
     void pressPlay() async {
       if (widget.isPlaying) {

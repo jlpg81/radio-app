@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:radio_app/src/home/banner.dart';
 
 import 'package:radio_app/src/home/country_selector.dart';
 import 'package:radio_app/src/home/radio_list.dart';
@@ -49,6 +50,7 @@ class _HomeState extends State<Home> {
           children: [
             CountrySelector(onChange: changeCountry),
             RadioList(stations: filteredList),
+            const AdBanner(),
           ],
         ),
       ),

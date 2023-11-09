@@ -1,44 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:radio_app/helpers/country_list.dart' as country_list;
-
-// const List<String> list2 = <String>['Onee', 'Two', 'Three', 'Four'];
-List<String> list = country_list.countryList;
+import 'package:radio_app/helpers/country_list.dart';
 
 class CountrySelector extends StatefulWidget {
-  const CountrySelector({super.key, required this.changeCountry});
+  const CountrySelector({
+    super.key,
+    required this.onChange,
+  });
 
-  final Function changeCountry;
+  final Function onChange;
 
   @override
   State<CountrySelector> createState() => _CountrySelectorState();
 }
 
 class _CountrySelectorState extends State<CountrySelector> {
-  String dropdownValue = list.first;
+  String initialValue = 'ES';
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<String>(
-      value: dropdownValue,
-      icon: const Icon(Icons.arrow_downward),
-      elevation: 16,
-      style: const TextStyle(color: Colors.deepPurple),
-      underline: Container(
-        height: 2,
-        color: Colors.deepPurpleAccent,
-      ),
-      onChanged: (String? value) {
-        widget.changeCountry(value);
-        setState(() {
-          dropdownValue = value!;
-        });
-      },
-      items: list.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
+    funcc(value) {
+      widget.onChange(value);
+      setState(() {
+        initialValue = value;
+      });
+    }
+
+    var radioList = countryList.map<DropdownMenuItem>((value) {
+      return DropdownMenuItem<String>(
+        value: value['countrycode'],
+        child: Text(value['country']),
+      );
+    }).toList();
+
+    return DropdownButton(
+      value: initialValue,
+      items: radioList,
+      onChanged: (value) => funcc(value),
     );
   }
 }

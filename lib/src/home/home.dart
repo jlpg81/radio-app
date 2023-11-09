@@ -13,7 +13,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List completeList = [];
-  String selectedCountry = 'Spain';
+  var selectedCountry = 'ES';
 
   void changeCountry(String country) {
     setState(() {
@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
       body: Center(
         child: Column(
           children: [
-            CountrySelector(changeCountry: changeCountry),
+            CountrySelector(onChange: changeCountry),
             const Text('Country'),
             Text(selectedCountry),
           ],

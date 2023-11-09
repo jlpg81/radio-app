@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:radio_app/src/home/radio_list_item.dart';
 
 class RadioList extends StatelessWidget {
   const RadioList({super.key, required this.stations});
@@ -7,6 +8,20 @@ class RadioList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    List<Widget> list3 = stations
+        .map((station) => RadioListItem(
+              name: station['name'],
+              favicon: station['favicon'],
+              url: station['url_resolved'],
+            ))
+        .toList();
+
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Column(
+          children: list3,
+        ),
+      ),
+    );
   }
 }

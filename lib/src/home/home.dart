@@ -48,8 +48,6 @@ class _HomeState extends State<Home> {
         child: Column(
           children: [
             CountrySelector(onChange: changeCountry),
-            const Text('Country'),
-            Text(selectedCountry),
             RadioList(stations: filteredList),
           ],
         ),

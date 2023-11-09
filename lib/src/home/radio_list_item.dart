@@ -13,6 +13,19 @@ class RadioListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(name);
+    return TextButton(
+      child: Text(name),
+      onPressed: () {
+        Navigator.pushNamed(
+          context,
+          'player',
+          arguments: {
+            'name': name,
+            'favicon': favicon,
+            'url': url,
+          },
+        );
+      },
+    );
   }
 }

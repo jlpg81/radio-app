@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:radio_app/src/player/player.dart';
 
 import 'settings/settings_controller.dart';
 // import 'settings/settings_view.dart';
@@ -26,13 +27,25 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           // Predefined variables. Check documentation for these.
           restorationScopeId: 'app',
-          theme: ThemeData(),
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.orange),
+            scaffoldBackgroundColor: Colors.grey[800],
+            textTheme: const TextTheme(
+              bodySmall: TextStyle(),
+              bodyMedium: TextStyle(),
+              bodyLarge: TextStyle(),
+            ).apply(
+              bodyColor: Colors.orange,
+              displayColor: Colors.orange,
+            ),
+          ),
           darkTheme: ThemeData.dark(),
           themeMode: settingsController.themeMode,
 
           initialRoute: 'home',
           routes: {
             'home': (context) => const Home(),
+            'player': (context) => Player(),
           },
         );
       },

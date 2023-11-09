@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:radio_app/src/home/country_selector.dart';
+import 'package:radio_app/src/home/radio_list.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -36,6 +37,9 @@ class _HomeState extends State<Home> {
       readJson();
     }
 
+    var filteredList =
+        completeList.where((i) => i['countrycode'] == selectedCountry).toList();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Radio App'),
@@ -46,6 +50,7 @@ class _HomeState extends State<Home> {
             CountrySelector(onChange: changeCountry),
             const Text('Country'),
             Text(selectedCountry),
+            RadioList(stations: filteredList),
           ],
         ),
       ),

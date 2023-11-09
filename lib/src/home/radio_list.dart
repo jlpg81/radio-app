@@ -18,8 +18,12 @@ class RadioList extends StatelessWidget {
 
     return Expanded(
       child: SingleChildScrollView(
-        child: Column(
-          children: list3,
+        child: Container(
+          alignment: Alignment.centerLeft,
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            children: list3,
+          ),
         ),
       ),
     );

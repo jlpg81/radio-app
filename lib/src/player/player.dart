@@ -1,5 +1,6 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+
+import 'package:audioplayers/audioplayers.dart';
 
 // ignore: must_be_immutable
 class Player extends StatefulWidget {
@@ -7,7 +8,7 @@ class Player extends StatefulWidget {
     super.key,
   });
 
-  bool isPlaying = false;
+  bool isPlaying = true;
 
   @override
   State<Player> createState() => _PlayerState();
@@ -17,8 +18,16 @@ class _PlayerState extends State<Player> {
   final audioPlayer = AudioPlayer();
 
   @override
+  void dispose() {
+    audioPlayer.pause();
+    super.dispose();
+  }
+
+  @override
+  @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments! as Map;
+    audioPlayer.play(UrlSource(args['url']));
 
     void pressPlay() async {
       if (widget.isPlaying) {
@@ -30,18 +39,18 @@ class _PlayerState extends State<Player> {
       setState(() {});
     }
 
-    // print('isPlaying');
-    // print(widget.isPlaying);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Player'),
       ),
       body: Column(
         children: [
+          const SizedBox(
+            height: 50,
+          ),
           args['favicon'].isEmpty
-              ? Image.network(
-                  'https://picsum.photos/250?image=9',
+              ? Image.asset(
+                  'assets/images/radio.jpg',
                   width: 300,
                   height: 300,
                 )
@@ -50,8 +59,17 @@ class _PlayerState extends State<Player> {
                   width: 300,
                   height: 300,
                 ),
-          Text(args['name']),
-          const Text('Song name'),
+          const SizedBox(
+            height: 50,
+          ),
+          Text(
+            args['name'],
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
+          const SizedBox(
+            height: 50,
+          ),
+          // const Text('Song name'),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

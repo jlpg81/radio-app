@@ -11,10 +11,42 @@ class RadioListItem extends StatelessWidget {
   final String favicon;
   final String url;
 
+  // favicon.isEmpty
+  //             ? Image.asset(
+  //                 'assets/images/radio.jpg',
+  //                 width: 300,
+  //                 height: 300,
+  //               )
+  //             : Image.network(
+  //                 args['favicon'],
+  //                 width: 300,
+  //                 height: 300,
+  //               ),
+
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      child: Text(name),
+      style: TextButton.styleFrom(
+        fixedSize: Size(MediaQuery.of(context).size.width - 20, 0),
+      ),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Row(
+          children: [
+            const Icon(
+              Icons.radio,
+              size: 20.0,
+            ),
+            const Text('    '),
+            Expanded(
+              child: Text(
+                name,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
+      ),
       onPressed: () {
         Navigator.pushNamed(
           context,

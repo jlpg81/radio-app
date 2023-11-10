@@ -1,27 +1,14 @@
 import 'package:flutter/material.dart';
 
 class RadioListItem extends StatelessWidget {
-  const RadioListItem(
-      {super.key,
-      required this.name,
-      required this.favicon,
-      required this.url});
+  const RadioListItem({
+    super.key,
+    required this.id,
+    required this.name,
+  });
 
+  final int id;
   final String name;
-  final String favicon;
-  final String url;
-
-  // favicon.isEmpty
-  //             ? Image.asset(
-  //                 'assets/images/radio.jpg',
-  //                 width: 300,
-  //                 height: 300,
-  //               )
-  //             : Image.network(
-  //                 args['favicon'],
-  //                 width: 300,
-  //                 height: 300,
-  //               ),
 
   @override
   Widget build(BuildContext context) {
@@ -52,9 +39,8 @@ class RadioListItem extends StatelessWidget {
           context,
           'player',
           arguments: {
+            'id': id,
             'name': name,
-            'favicon': favicon,
-            'url': url,
           },
         );
       },

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:radio_app/src/home/banner.dart';
 
+import 'package:radio_app/helpers/globals.dart' as globals;
+
 // ignore: must_be_immutable
 class Player extends StatefulWidget {
   Player({
@@ -17,6 +19,8 @@ class Player extends StatefulWidget {
 
 class _PlayerState extends State<Player> {
   final audioPlayer = AudioPlayer();
+  bool newScreen = true;
+  int stationId = 0;
 
   @override
   void dispose() {
@@ -26,17 +30,47 @@ class _PlayerState extends State<Player> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments! as Map;
+    if (newScreen) {
+      final args = ModalRoute.of(context)!.settings.arguments! as Map;
+      stationId = args['id'];
+      newScreen = false;
+    }
+
+    List stations = globals.activeStations;
+
+    getStation(id) {
+      return stations.where((i) => i['id'] == id).toList()[0];
+    }
+
+    var selectedStation = getStation(stationId);
 
     if (widget.isPlaying) {
-      audioPlayer.play(UrlSource(args['url']));
+      audioPlayer.play(UrlSource(selectedStation['url']));
+    }
+
+    void pressPrevious() {
+      audioPlayer.pause();
+      stationId = stationId - 1;
+      if (stationId == 0) {
+        stationId = 50;
+      }
+      setState(() {});
+    }
+
+    void pressNext() {
+      audioPlayer.pause();
+      stationId = stationId + 1;
+      if (stationId == 51) {
+        stationId = 1;
+      }
+      setState(() {});
     }
 
     void pressPlay() async {
       if (widget.isPlaying) {
         await audioPlayer.pause();
       } else {
-        await audioPlayer.play(UrlSource(args['url']));
+        await audioPlayer.play(UrlSource(selectedStation['url']));
       }
       widget.isPlaying = !widget.isPlaying;
       setState(() {});
@@ -51,14 +85,14 @@ class _PlayerState extends State<Player> {
           const SizedBox(
             height: 50,
           ),
-          args['favicon'].isEmpty
+          selectedStation['favicon'].isEmpty
               ? Image.asset(
                   'assets/images/radio.jpg',
                   width: 300,
                   height: 300,
                 )
               : Image.network(
-                  args['favicon'],
+                  selectedStation['favicon'],
                   width: 300,
                   height: 300,
                 ),
@@ -66,7 +100,7 @@ class _PlayerState extends State<Player> {
             height: 50,
           ),
           Text(
-            args['name'],
+            selectedStation['name'],
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
           const SizedBox(
@@ -77,7 +111,7 @@ class _PlayerState extends State<Player> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               RawMaterialButton(
-                onPressed: () {},
+                onPressed: () => pressPrevious(),
                 elevation: 2.0,
                 fillColor: Colors.orange,
                 padding: const EdgeInsets.all(15.0),
@@ -104,7 +138,7 @@ class _PlayerState extends State<Player> {
                       ),
               ),
               RawMaterialButton(
-                onPressed: () {},
+                onPressed: () => pressNext(),
                 elevation: 2.0,
                 fillColor: Colors.orange,
                 padding: const EdgeInsets.all(15.0),

@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 String uri = 'bando-radio-api.p.rapidapi.com';
 
 class ApiHelper {
+  // The api call is disconnected. Please check the readme to understand why.
   static Future getRadiosByCountry() async {
     var url = Uri.https(uri, 'stations/bycountry/au');
     var response = await http.get(url, headers: {
